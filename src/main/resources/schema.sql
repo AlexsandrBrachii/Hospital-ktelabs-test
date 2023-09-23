@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS doctors (
     id_doctor BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     uuid_doctor UUID NOT NULL,
     fullname_doctor VARCHAR(255) NOT NULL,
+    specialty_doctor VARCHAR(255) NOT NULL,
     UNIQUE (id_doctor)
 );
 

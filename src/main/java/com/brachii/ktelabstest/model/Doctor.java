@@ -20,4 +20,7 @@ public class Doctor {
 
     @Column(name = "fullname_doctor")
     private String fullNameDoctor;
+
+    @Column(name = "specialty_doctor")
+    private String specialty;
 }

@@ -7,4 +7,5 @@ public class DoctorDto {
 
     private Long idDoctor;
     private String fullNameDoctor;
+    private String specialty;
 }
