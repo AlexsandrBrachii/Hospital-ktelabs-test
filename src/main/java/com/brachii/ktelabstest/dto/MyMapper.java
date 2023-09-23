@@ -9,6 +9,7 @@ public class MyMapper {
         DoctorDto doctorDto = new DoctorDto();
         doctorDto.setIdDoctor(doctor.getIdDoctor());
         doctorDto.setFullNameDoctor(doctor.getFullNameDoctor());
+        doctorDto.setSpecialty(doctor.getSpecialty());
         return doctorDto;
     }
 

@@ -1,6 +1,8 @@
 package com.brachii.ktelabstest.service;
 
 import com.brachii.ktelabstest.dto.DoctorDto;
+import com.brachii.ktelabstest.exception.EmptyValueException;
+import com.brachii.ktelabstest.exception.NotFoundException;
 import com.brachii.ktelabstest.model.Doctor;
 import com.brachii.ktelabstest.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,20 +25,28 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public Doctor createDoctor(Doctor doctor) {
+        if (doctor == null) {
+            throw new EmptyValueException("Doctor cannot be null");
+        }
+
         UUID uuidNew = UUID.randomUUID();
         doctor.setUuidDoctor(uuidNew);
         Doctor newDoctor = doctorRepository.save(doctor);
-        log.info("Doctor created with id=" + doctor.getIdDoctor());
+        log.info("Doctor created with id=" + newDoctor.getIdDoctor());
         return newDoctor;
     }
 
     @Override
     public DoctorDto getDoctorById(Long doctorId) {
+        if (doctorId == null) {
+            throw new EmptyValueException("Id cannot be null");
+        }
+
         Optional<Doctor> doctorOptional = doctorRepository.findById(doctorId);
 
         if (doctorOptional.isEmpty())  {
             log.info("Doctor with id=" + doctorId + " not found.");
-            return null;
+            throw new NotFoundException("Doctor with id=" + doctorId + " not found.");
         }
 
         Doctor doctor = doctorOptional.get();
@@ -47,6 +57,11 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void deleteDoctor(Long doctorId) {
+        if (doctorId == null) {
+            throw new EmptyValueException("Id cannot be null");
+        }
+
+        getDoctorById(doctorId);
         doctorRepository.deleteById(doctorId);
         log.info("Doctor with id=" + doctorId + " deleted.");
     }

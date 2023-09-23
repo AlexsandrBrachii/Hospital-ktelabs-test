@@ -1,5 +1,6 @@
 package com.brachii.ktelabstest.soap;
 
+import com.brachii.ktelabstest.exception.EmptyValueException;
 import com.brachii.ktelabstest.model.Ticket;
 import com.brachii.ktelabstest.repository.TicketRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -24,6 +25,9 @@ public class TicketServiceSoapImpl implements TicketServiceSoap {
     @Override
     @WebMethod
     public String createTicket(String ticketXml) {
+        if (ticketXml == null) {
+            throw new EmptyValueException("XML cannot be null");
+        }
         Ticket newTicket = null;
 
         try {
